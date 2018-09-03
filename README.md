@@ -1,1 +1,1 @@
-node-express-mongo-typescript
+Just me messing around and learning about node-express-mongo-typescript
