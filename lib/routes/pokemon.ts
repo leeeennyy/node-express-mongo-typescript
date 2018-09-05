@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import { PokemonController } from "../controllers/pokemonController";
 
 export class PokemonRoutes {
@@ -6,7 +5,10 @@ export class PokemonRoutes {
 
     public setup(app): void {
         app
-            .route('/pokemon/:number')
-            .get(this.pokemonController.getPokemonWithNumber);
+            .route('/pokemon')
+            .get(this.pokemonController.getAllPokemon);
+        app    
+            .route('/pokemon/:nationalDexNumber')
+            .get(this.pokemonController.getPokemonWithNationalDexNumber);
     }
 }

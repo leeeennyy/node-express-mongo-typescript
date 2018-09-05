@@ -1,17 +1,20 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import { DefaultRoutes } from './routes/default';
 import * as mongoose from 'mongoose';
+import { DefaultRoutes } from './routes/default';
+import { PokemonRoutes } from './routes/pokemon';
 
 class App {
     public app: express.Application;
     public defaultRoutes: DefaultRoutes = new DefaultRoutes();
+    public pokemonRoutes: PokemonRoutes = new PokemonRoutes();
     public mongoUrl: string = 'mongodb://localhost/pokeapi';
 
     constructor() {
         this.app = express();
         this.config();
         this.defaultRoutes.setup(this.app);
+        this.pokemonRoutes.setup(this.app);
         this.mongoSetup();
     }
 
@@ -24,8 +27,8 @@ class App {
     }
 
     private mongoSetup(): void {
-        mongoose.Promise = global.Promise;
-        mongoose.connect(this.mongoUrl);
+        (<any>mongoose).Promise = global.Promise;
+        mongoose.connect(this.mongoUrl, { useNewUrlParser: true });
     }
 }
 
